@@ -1,27 +1,28 @@
 import React from 'react'
 import Reflux from 'reflux'
-import saveUser from '../reflux/actions';
+import Action from '../reflux/actions';
 import StatusStore from '../reflux/stores';
 
-export default class UserForm extends React.Component{
+export default class UserForm extends Reflux.Component{
     constructor(props){
         super(props);
         this.state = {name: '', email:'',allUsr: false}
+        this.store=StatusStore;
+        this.storeKeys = ['users'];
     }
-onChange = (e)=>{
-    console.log(this.state)
-    const {name,value} = e.target;
-    this.setState({...this.state,[name]: value},()=>console.log(this.state))
-}
-showAll = ()=>{
-    this.setState({allUsr: true})
-}
-onSubmit = ()=>{
-    console.log({name:this.state.name,email:this.state.email})
-    saveUser({name:this.state.name,email:this.state.email})
-    this.setState({name: '', email:'',allUsr: false})
+    onChange = (e)=>{
+        console.log(this.state)
+        const {name,value} = e.target;
+        this.setState({...this.state,[name]: value},()=>console.log(this.state))
+    }
+    showAll = ()=>{
+        this.setState({allUsr: true})
+    }
+    onSubmit = ()=>{
+        Action({name:this.state.name,email:this.state.email})
+        this.setState({name: '', email:'',allUsr: false})
 
-}
+    }
     render(){
         var flag = this.state.name; var flag2 = this.state.email
         if(this.state.allUsr)return(<AllUser/>)
@@ -44,7 +45,7 @@ class AllUser extends Reflux.Component{
         this.store = StatusStore;
     }
     componentDidMount(){
-
+        console.log(this.state)
     }
     render(){
         console.log('store exists',this.state)
