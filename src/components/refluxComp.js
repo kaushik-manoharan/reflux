@@ -50,9 +50,20 @@ class AllUser extends Reflux.Component{
     render(){
         console.log('store exists',this.state)
         return(
-            <>
-            <h1>hello</h1>
-            </>
+            <div>
+                            <table>
+                <tr>
+                    <th style={{borderRight: '1px solid black', padding: '1vh'}}>Name</th>
+                    <th style={{ padding: '1vh'}}>Email</th>
+                </tr>
+            {this.state.users.map((f,i)=>
+<tr>
+                <td style={{borderRight: '1px solid black', padding: '1vh'}}>{f.name}</td> 
+                <td style={{ padding: '1vh'}}>{f.email}</td>
+                </tr>
+            )}
+                        </table>
+            </div>
         )
     }
 }
